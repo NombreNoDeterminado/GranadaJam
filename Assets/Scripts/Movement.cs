@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    Animator animator;
     Rigidbody m_Rigidbody;
     public float m_Speed = 5f;
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -24,6 +26,11 @@ public class Movement : MonoBehaviour
         if(!m_Input.Equals(Vector3.zero))
         {
             m_Rigidbody.rotation = Quaternion.LookRotation(m_Input);
+            animator.SetBool("running", true);
+        }
+        else
+        {
+            animator.SetBool("running", false);
         }
     }
 }
