@@ -14,7 +14,7 @@ ModelImporter:
     second: 1|3Action.001
   - first:
       74: -6876572817419498415
-    second: 1|4Action.001
+    second: Animacion cuadro 1
   - first:
       74: 2060974016524760606
     second: 1|FloorAction.001
@@ -26,7 +26,7 @@ ModelImporter:
     second: 2|2Action.001
   - first:
       74: -2787732362842964484
-    second: 2|3Action.001
+    second: "Animaci\xF3n cuadro 2"
   - first:
       74: -5740023727542342187
     second: 2|4Action.001
@@ -38,7 +38,7 @@ ModelImporter:
     second: 4|1Action.001
   - first:
       74: 989245267069139448
-    second: 4|2Action.001
+    second: Anima
   - first:
       74: -1159297905404349053
     second: 4|3Action.001
@@ -108,7 +108,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 1|4Action.001
+      name: Animacion cuadro 1
       takeName: 1|4Action.001
       internalID: 0
       firstFrame: 0
@@ -137,7 +137,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: 2|3Action.001
+      name: "Animaci\xF3n cuadro 2"
       takeName: 2|3Action.001
       internalID: 0
       firstFrame: 0
@@ -166,36 +166,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: 2|FloorAction.001
-      takeName: 2|FloorAction.001
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 25
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: 4|2Action.001
+      name: Anima
       takeName: 4|2Action.001
       internalID: 0
       firstFrame: 0
