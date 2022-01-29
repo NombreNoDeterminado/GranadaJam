@@ -9,6 +9,7 @@ public class TileController : MonoBehaviour
     public int yCoordinate;
     public Material normal;
     public Material hover;
+    public Material trapped;
 
     private Renderer[] _objectRendererReference;
     private ITrap _activeTrap;
@@ -27,17 +28,25 @@ public class TileController : MonoBehaviour
     private void OnMouseEnter()
     {
         Debug.Log($"{xCoordinate}{yCoordinate}");
-        foreach (var rend in _objectRendererReference)
-        {
-            rend.material = hover;
-        }
+        SetMaterial(hover);
     }
 
     private void OnMouseExit()
     {
+        SetMaterial(_activeTrap == null ? normal : trapped);
+    }
+
+    private void ClearTrap()
+    {
+        _activeTrap = null;
+        SetMaterial(normal);
+    }
+
+    private void SetMaterial(Material m)
+    {
         foreach (var rend in _objectRendererReference)
         {
-            rend.material = normal;
+            rend.material = m;
         }
     }
 
@@ -50,7 +59,10 @@ public class TileController : MonoBehaviour
     {
         if (_activeTrap == null)
         {
+            Debug.Log("Trap added");
             _activeTrap = trap;
+            SetMaterial(trapped);
+            Invoke("ClearTrap", trap.Duration());
         }
     }
 

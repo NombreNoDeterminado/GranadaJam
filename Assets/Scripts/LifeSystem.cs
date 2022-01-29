@@ -26,6 +26,7 @@ public class LifeSystem : MonoBehaviour
         _livesNumber -= damage;
         _livesNumber = Math.Max(0, _livesNumber);
         UpdateHearts();
+        Debug.Log($"Remaining lives: {_livesNumber}");
     }
 
     private void UpdateHearts()
