@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
+    public int xCoordinate;
+    public int yCoordinate;
     public Color normal;
     public Color selected;
-    private Trap _activeTrap;
+    
+    private ITrap _activeTrap;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +33,7 @@ public class TileController : MonoBehaviour
         TileMatrixController.Instance.TriggerTileClick(this.name);
     }
 
-    public void SetTrap(Trap trap)
+    public void SetTrap(ITrap trap)
     {
         if (_activeTrap == null)
         {

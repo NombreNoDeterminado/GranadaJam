@@ -1,4 +1,6 @@
-public interface Trap
+using UnityEngine;
+
+public interface ITrap
 {
     // Returns the damage of the trap
     int Damage();
@@ -7,4 +9,9 @@ public interface Trap
     float Duration();
 
     int Size();
+    
+    // True if is horizontal, false if vertical
+    bool Orientation();
+
+    Sprite Sprite();
 }
