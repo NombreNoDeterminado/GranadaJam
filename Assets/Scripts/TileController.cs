@@ -53,6 +53,7 @@ public class TileController : MonoBehaviour
     private void OnMouseDown()
     {
         TileMatrixController.Instance.TriggerTileClick(this.xCoordinate, this.yCoordinate);
+        TrapSelector.Instance.UpdateTraps();
     }
 
     public void SetTrap(ITrap trap)
@@ -66,7 +67,7 @@ public class TileController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

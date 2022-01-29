@@ -8,6 +8,9 @@ public class LifeSystem : MonoBehaviour
 {
     public static LifeSystem Instance;
     private const int MaxLivesNumber = 3;
+    private bool _canTakedamage;
+
+    public Text lifeText;
     
     // Heart images
     public Image heart1, heart2, heart3;
@@ -17,16 +20,29 @@ public class LifeSystem : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        _canTakedamage = true;
         _livesNumber = MaxLivesNumber;
         _hearts = new[] {heart1, heart2, heart3};
     }
 
+    private void enableDamage()
+    {
+        _canTakedamage = true;
+    }
+
     public void TakeDamage(int damage)
     {
-        _livesNumber -= damage;
-        _livesNumber = Math.Max(0, _livesNumber);
-        UpdateHearts();
-        Debug.Log($"Remaining lives: {_livesNumber}");
+        if(_canTakedamage)
+        {
+            _livesNumber -= damage;
+            _livesNumber = Math.Max(0, _livesNumber);
+            //UpdateHearts();
+            Debug.Log($"Remaining lives: {_livesNumber}");
+            lifeText.text = _livesNumber.ToString();
+            _canTakedamage = false;
+            Invoke("enableDamage", 3);
+        }
+       
     }
 
     private void UpdateHearts()

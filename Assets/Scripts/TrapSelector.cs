@@ -31,12 +31,12 @@ public class TrapSelector : MonoBehaviour
     void Start()
     {
         Instance = this;
-        UpdateTraps();
         imageList = new GameObject[] {image1, image2, image3};
         textList = new Text[] {text1, text2, text3};
+        UpdateTraps();
     }
 
-    private void UpdateTraps()
+    public void UpdateTraps()
     {
         Traps.Clear();
         SelectedTrap = null;
@@ -55,6 +55,8 @@ public class TrapSelector : MonoBehaviour
                 i--;
             }
         }
+
+        setVisualSelector();
     }
 
     private void Update()
@@ -70,12 +72,13 @@ public class TrapSelector : MonoBehaviour
         }
     }
 
-    void setVisualSelector(Dictionary<string, ITrap> traps)
+    void setVisualSelector()
     {
-        List<string> trapsKeys = new List<string>(traps.Keys);
-        for (int i = 0; i < imageList.Length; i++)
+        List<string> trapsKeys = new List<string>(Traps.Keys);
+        Debug.Log(trapsKeys);
+        for (int i = 0; i < MaxTraps; i++)
         {
-            imageList[i].GetComponent<Image>().sprite = traps[trapsKeys[i]].Sprite();
+            imageList[i].GetComponent<Image>().sprite = Traps[trapsKeys[i]].Sprite();
             textList[i].text = trapsKeys[i];
         }
     }
