@@ -38,6 +38,8 @@ public class TileController : MonoBehaviour
         if (_activeTrap == null)
         {
             _activeTrap = trap;
+            StartCoroutine(disableTrap(_activeTrap.Duration()));
+ 
         }
     }
 
@@ -50,5 +52,11 @@ public class TileController : MonoBehaviour
                 LifeSystem.Instance.TakeDamage(_activeTrap.Damage());
             }
         }
+    }
+
+    IEnumerator disableTrap(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        _activeTrap = null;
     }
 }
