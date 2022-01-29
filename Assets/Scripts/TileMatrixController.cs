@@ -5,12 +5,12 @@ public class TileMatrixController : MonoBehaviour
 {
     public static TileMatrixController Instance;
 
-    private const int Width = 5, Height = 5;
+    private const int Width = 8, Height = 7;
 
     private TileController[][] _tiles =
     {
-        new TileController[5], new TileController[5], new TileController[5], new TileController[5],
-        new TileController[5]
+        new TileController[7], new TileController[7], new TileController[7], new TileController[7],
+        new TileController[7], new TileController[7], new TileController[7], new TileController[7]
     };
 
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class TileMatrixController : MonoBehaviour
 
         var remainingTilesToActivate = (currentTrap.Size() - 1) / 2;
         _tiles[xCoordinate][yCoordinate].SetTrap(currentTrap);
-        for (var i = 0; i < remainingTilesToActivate; i++)
+        for (var i = 1; i <= remainingTilesToActivate; i++)
         {
             try
             {
@@ -44,6 +44,7 @@ public class TileMatrixController : MonoBehaviour
             }
             catch
             {
+                // ignored
             }
 
             try
@@ -52,6 +53,7 @@ public class TileMatrixController : MonoBehaviour
             }
             catch
             {
+                // ignored
             }
         }
     }

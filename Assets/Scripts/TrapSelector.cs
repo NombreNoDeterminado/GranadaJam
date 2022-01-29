@@ -21,7 +21,7 @@ public class TrapSelector : MonoBehaviour
     public Text text3;
     private Text[] textList;
 
-    public Dictionary<string, ITrap> Traps { get; private set; }
+    public Dictionary<string, ITrap> Traps { get; private set; } = new Dictionary<string, ITrap>();
 
     // Maximum numbers of traps in the array
     private const int MaxTraps = 3;
@@ -31,7 +31,6 @@ public class TrapSelector : MonoBehaviour
     void Start()
     {
         Instance = this;
-        Traps = new Dictionary<string, ITrap>();
         UpdateTraps();
         imageList = new GameObject[] {image1, image2, image3};
         textList = new Text[] {text1, text2, text3};
@@ -45,10 +44,11 @@ public class TrapSelector : MonoBehaviour
         for (var i = 0; i < MaxTraps; i++)
         {
             var binding = $"{(char) Random.Range(97, 123)}";
-            ITrap trap = null; // TODO: Select a random trap from a global array of all traps
+            int trap = Random.Range(0, TrapGeneric.Instances.Length);
             try
             {
-                Traps.Add(binding, trap);
+                Traps.Add(binding, TrapGeneric.Instances[trap]);
+                Debug.Log($"{binding} ${Traps[binding].Name()}");
             }
             catch
             {
@@ -61,9 +61,11 @@ public class TrapSelector : MonoBehaviour
     {
         foreach (var bind in Traps.Keys)
         {
-            if (Input.GetKey(bind))
+            if (Input.GetKeyDown(bind))
             {
+                Debug.Log($"{bind}");
                 SelectedTrap = Traps[bind];
+                Debug.Log($"{SelectedTrap.Name()}");
             }
         }
     }

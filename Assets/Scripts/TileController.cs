@@ -7,25 +7,47 @@ public class TileController : MonoBehaviour
 {
     public int xCoordinate;
     public int yCoordinate;
-    public Color normal;
-    public Color selected;
-    
+    public Material normal;
+    public Material hover;
+    public Material trapped;
+
+    private Renderer[] _objectRendererReference;
     private ITrap _activeTrap;
 
     // Start is called before the first frame update
     void Start()
     {
         _activeTrap = null;
+        _objectRendererReference = new Renderer[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            _objectRendererReference[i] = transform.GetChild(i).GetComponent<Renderer>();
+        }
     }
 
     private void OnMouseEnter()
     {
-        GetComponent<Renderer>().material.color = selected;
+        Debug.Log($"{xCoordinate}{yCoordinate}");
+        SetMaterial(hover);
     }
 
     private void OnMouseExit()
     {
-        GetComponent<Renderer>().material.color = normal;
+        SetMaterial(_activeTrap == null ? normal : trapped);
+    }
+
+    private void ClearTrap()
+    {
+        _activeTrap = null;
+        SetMaterial(normal);
+    }
+
+    private void SetMaterial(Material m)
+    {
+        foreach (var rend in _objectRendererReference)
+        {
+            rend.material = m;
+        }
     }
 
     private void OnMouseDown()
@@ -37,7 +59,10 @@ public class TileController : MonoBehaviour
     {
         if (_activeTrap == null)
         {
+            Debug.Log("Trap added");
             _activeTrap = trap;
+            SetMaterial(trapped);
+            Invoke("ClearTrap", trap.Duration());
         }
     }
 
@@ -48,6 +73,7 @@ public class TileController : MonoBehaviour
             if (_activeTrap != null)
             {
                 LifeSystem.Instance.TakeDamage(_activeTrap.Damage());
+                _activeTrap = null;
             }
         }
     }
