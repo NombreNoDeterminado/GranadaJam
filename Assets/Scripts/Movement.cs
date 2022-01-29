@@ -21,5 +21,9 @@ public class Movement : MonoBehaviour
     {
         Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         m_Rigidbody.MovePosition(transform.position + m_Input * Time.deltaTime * m_Speed);
+        if(!m_Input.Equals(Vector3.zero))
+        {
+            m_Rigidbody.rotation = Quaternion.LookRotation(m_Input);
+        }
     }
 }
