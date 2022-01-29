@@ -7,25 +7,38 @@ public class TileController : MonoBehaviour
 {
     public int xCoordinate;
     public int yCoordinate;
-    public Color normal;
-    public Color selected;
-    
+    public Material normal;
+    public Material hover;
+
+    private Renderer[] _objectRendererReference;
     private ITrap _activeTrap;
 
     // Start is called before the first frame update
     void Start()
     {
         _activeTrap = null;
+        _objectRendererReference = new Renderer[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            _objectRendererReference[i] = transform.GetChild(i).GetComponent<Renderer>();
+        }
     }
 
     private void OnMouseEnter()
     {
-        GetComponent<Renderer>().material.color = selected;
+        Debug.Log($"{xCoordinate}{yCoordinate}");
+        foreach (var rend in _objectRendererReference)
+        {
+            rend.material = hover;
+        }
     }
 
     private void OnMouseExit()
     {
-        GetComponent<Renderer>().material.color = normal;
+        foreach (var rend in _objectRendererReference)
+        {
+            rend.material = normal;
+        }
     }
 
     private void OnMouseDown()

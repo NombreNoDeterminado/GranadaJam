@@ -5,12 +5,12 @@ public class TileMatrixController : MonoBehaviour
 {
     public static TileMatrixController Instance;
 
-    private const int Width = 5, Height = 5;
+    private const int Width = 8, Height = 9;
 
     private TileController[][] _tiles =
     {
-        new TileController[5], new TileController[5], new TileController[5], new TileController[5],
-        new TileController[5]
+        new TileController[8], new TileController[8], new TileController[8], new TileController[8],
+        new TileController[8], new TileController[8], new TileController[8], new TileController[8], new TileController[8]
     };
 
     // Start is called before the first frame update
