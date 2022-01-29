@@ -30,7 +30,7 @@ public class TileController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        TileMatrixController.Instance.TriggerTileClick(this.name);
+        TileMatrixController.Instance.TriggerTileClick(this.xCoordinate, this.yCoordinate);
     }
 
     public void SetTrap(ITrap trap)

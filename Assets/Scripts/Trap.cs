@@ -10,7 +10,7 @@ public interface ITrap
 
     int Size();
     
-    // True if is horizontal, false if vertical
+    /// True if is horizontal, false if vertical
     bool Orientation();
 
     Sprite Sprite();

@@ -29,9 +29,30 @@ public class TileMatrixController : MonoBehaviour
         }
     }
 
-    public void TriggerTileClick(string tileName)
+    public void TriggerTileClick(int xCoordinate, int yCoordinate)
     {
         var currentTrap = TrapSelector.Instance.SelectedTrap;
-        var coordinates = tileName.Substring(4);
+        var steps = new[] {currentTrap.Orientation() ? 1 : 0, currentTrap.Orientation() ? 0 : 1};
+
+        var remainingTilesToActivate = (currentTrap.Size() - 1) / 2;
+        _tiles[xCoordinate][yCoordinate].SetTrap(currentTrap);
+        for (var i = 0; i < remainingTilesToActivate; i++)
+        {
+            try
+            {
+                _tiles[xCoordinate + i * steps[0]][yCoordinate + i * steps[1]].SetTrap(currentTrap);
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                _tiles[xCoordinate - i * steps[0]][yCoordinate - i * steps[1]].SetTrap(currentTrap);
+            }
+            catch
+            {
+            }
+        }
     }
 }
