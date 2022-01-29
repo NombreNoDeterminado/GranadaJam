@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
+
+    public Color normal;
+    public Color selected;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +20,15 @@ public class TileController : MonoBehaviour
         
     }
 
+    private void OnMouseEnter()
+    {
+        GetComponent<Renderer>().material.color = selected;
+    }
+    
+    private void OnMouseExit()
+    {
+        GetComponent<Renderer>().material.color = normal;
+    }
     private void OnMouseDown()
     {
         GetComponent<Renderer>().material.color = Color.red;
