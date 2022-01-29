@@ -48,6 +48,7 @@ public class TileController : MonoBehaviour
             if (_activeTrap != null)
             {
                 LifeSystem.Instance.TakeDamage(_activeTrap.Damage());
+                _activeTrap = null;
             }
         }
     }
