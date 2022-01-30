@@ -20,4 +20,6 @@ public interface ITrap
     Material Trapped();
 
     ParticleSystem Particles();
+
+    GameObject Item();
 }

@@ -14,10 +14,12 @@ public class TileController : MonoBehaviour
     private Renderer[] _objectRendererReference;
     private ITrap _activeTrap;
     private ParticleSystem _particles;
+    private GameObject _trapItem;
 
     // Start is called before the first frame update
     private void Start()
     {
+        _trapItem = null;
         _particles = null;
         _activeTrap = null;
         _objectRendererReference = new Renderer[transform.childCount];
@@ -43,12 +45,22 @@ public class TileController : MonoBehaviour
         try
         {
             _particles.Stop();
+            Destroy(_particles);
+        }
+        catch
+        {
+        }
+
+        try
+        {
+            Destroy(_trapItem);
         }
         catch
         {
         }
 
         _particles = null;
+        _trapItem = null;
         _activeTrap = null;
         SetMaterial(normal);
     }
@@ -74,6 +86,7 @@ public class TileController : MonoBehaviour
         Debug.Log("Trap added");
         _activeTrap = trap;
         SetMaterial(_activeTrap.Trapped());
+        // set particles
         try
         {
             _particles = Instantiate(_activeTrap.Particles(), transform, true);
@@ -85,8 +98,20 @@ public class TileController : MonoBehaviour
         {
         }
 
+        // set item
+        try
+        {
+            _trapItem = Instantiate(_activeTrap.Item(), transform, true);
+            _trapItem.transform.localPosition = new Vector3(0, 0, 0.01f);
+            _trapItem.gameObject.SetActive(true);
+        }
+        catch
+        {
+        }
+
         Invoke(nameof(ClearTrap), trap.Duration());
     }
+
 
     private void OnCollisionStay(Collision collision)
     {
