@@ -63,6 +63,7 @@ public class TrapSelector : MonoBehaviour
         }
 
         SetVisualSelector();
+        clearOutlines();
     }
 
     private void Update()
@@ -75,6 +76,8 @@ public class TrapSelector : MonoBehaviour
             Debug.Log("AUDIO");
             _audioSource.pitch = Random.Range(minPitch, maxPitch);
             _audioSource.PlayOneShot(keyPressedAudio);
+            int imageIndex = findTextInList(bind);
+            _imageList[imageIndex].GetComponent<Outline>().enabled = true;
         }
     }
 
@@ -86,6 +89,26 @@ public class TrapSelector : MonoBehaviour
         {
             _imageList[i].GetComponent<Image>().sprite = Traps[trapsKeys[i]].Sprite();
             _textList[i].text = trapsKeys[i];
+        }
+    }
+
+    private int findTextInList(string bindKey)
+    {
+        for(int i=0; i<3; i++)
+        {
+            if(_textList[i].text == bindKey)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void clearOutlines()
+    {
+        foreach(GameObject image in _imageList)
+        {
+            image.GetComponent<Outline>().enabled = false;
         }
     }
 }
