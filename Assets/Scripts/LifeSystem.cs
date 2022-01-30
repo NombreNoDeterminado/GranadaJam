@@ -44,9 +44,9 @@ public class LifeSystem : MonoBehaviour
         if (!_canTakeDamage) return;
         _livesNumber -= damage;
         _livesNumber = Math.Max(0, _livesNumber);
-        //UpdateHearts();
+        UpdateHearts();
         Debug.Log($"Remaining lives: {_livesNumber}");
-        lifeText.text = _livesNumber.ToString();
+        //lifeText.text = _livesNumber.ToString();
         _canTakeDamage = false;
         Invoke(nameof(EnableDamage), 1.5f);
         if (_livesNumber > 0) return;
@@ -56,14 +56,11 @@ public class LifeSystem : MonoBehaviour
 
     private void UpdateHearts()
     {
-        for (var i = 0; i < _livesNumber; i++)
-        {
-            _hearts[i].enabled = true;
-        }
-
         for (var i = _livesNumber; i < MaxLivesNumber; i++)
         {
-            _hearts[i].enabled = false;
+            Color emptyHeart = Color.black;
+            emptyHeart.a = 0.5f;
+            _hearts[i].color = emptyHeart;
         }
     }
 }
