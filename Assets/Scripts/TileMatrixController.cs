@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TileMatrixController : MonoBehaviour
 {
-    public static TileMatrixController Instance;
+    public static TileMatrixController instance;
 
     private const int Width = 7, Height = 9;
 
@@ -16,7 +16,7 @@ public class TileMatrixController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Instance = this;
+        instance = this;
         var tiles = GameObject.FindObjectsOfType<TileController>();
 
 
@@ -31,30 +31,21 @@ public class TileMatrixController : MonoBehaviour
 
     public void TriggerTileClick(int xCoordinate, int yCoordinate)
     {
-        var currentTrap = TrapSelector.Instance.SelectedTrap;
+        var currentTrap = TrapSelector.instance.SelectedTrap;
         var steps = new[] {currentTrap.Orientation() ? 1 : 0, currentTrap.Orientation() ? 0 : 1};
-
         var remainingTilesToActivate = (currentTrap.Size() - 1) / 2;
-        _tiles[xCoordinate][yCoordinate].SetTrap(currentTrap);
-        for (var i = 1; i <= remainingTilesToActivate; i++)
+        for (var i = 0; i <= remainingTilesToActivate; i++)
         {
             try
             {
                 _tiles[xCoordinate + i * steps[0]][yCoordinate + i * steps[1]].SetTrap(currentTrap);
             }
-            catch
-            {
-                // ignored
-            }
-
+            catch{}
             try
             {
                 _tiles[xCoordinate - i * steps[0]][yCoordinate - i * steps[1]].SetTrap(currentTrap);
             }
-            catch
-            {
-                // ignored
-            }
+            catch{}
         }
     }
 }

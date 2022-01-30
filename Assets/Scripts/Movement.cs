@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Movement : MonoBehaviour
 {
-    Animator animator;
-    Rigidbody m_Rigidbody;
-    public float m_Speed = 5f;
-    AudioSource audioSource;
+    private Animator _animator;
+    private Rigidbody _mRigidbody;
+    [FormerlySerializedAs("m_Speed")] public float mSpeed = 5f;
+    private AudioSource _audioSource;
 
-    void Start()
+    private void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        _mRigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -21,18 +20,18 @@ public class Movement : MonoBehaviour
         
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        m_Rigidbody.MovePosition(transform.position + m_Input * Time.deltaTime * m_Speed);
-        if(!m_Input.Equals(Vector3.zero))
+        var mInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        _mRigidbody.MovePosition(transform.position + mInput * Time.deltaTime * mSpeed);
+        if(!mInput.Equals(Vector3.zero))
         {
-            m_Rigidbody.rotation = Quaternion.LookRotation(m_Input);
-            animator.SetBool("running", true);
+            _mRigidbody.rotation = Quaternion.LookRotation(mInput);
+            _animator.SetBool("running", true);
         }
         else
         {
-            animator.SetBool("running", false);
+            _animator.SetBool("running", false);
         }
     }
 }
