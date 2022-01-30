@@ -93,7 +93,7 @@ public class TileController : MonoBehaviour
         // set item
         try
         {
-            _trapItem = Instantiate(_activeTrap.Item(), transform.position, Quaternion.identity);
+            _trapItem = Instantiate(_activeTrap.Item(), transform.position + _activeTrap.Offset(), Quaternion.identity);
             //_trapItem.transform.localScale = Vector3.one;
             //_trapItem.transform.localPosition = new Vector3(0, 0, 0);
             _trapItem.gameObject.SetActive(true);
