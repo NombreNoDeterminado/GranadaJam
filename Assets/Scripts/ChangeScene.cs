@@ -8,5 +8,10 @@ public class ChangeScene : MonoBehaviour {
     public void goToMainScene() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    } 
+    }
+    
+    public void goToMainSceneDelay()
+    {
+        Invoke("goToMainScene",3f);
+    }
 }
