@@ -23,6 +23,15 @@ public class Timer : MonoBehaviour
     {
         if (!Working) return;
         _time += Time.deltaTime;
-        timer.text = $"{Mathf.FloorToInt(_time / 60)}:${Mathf.FloorToInt(_time) % 60}";
+        var text = Mathf.FloorToInt(_time) % 60 > 9
+            ? $"{Mathf.FloorToInt(_time / 60)}:{Mathf.FloorToInt(_time) % 60}"
+            : $"{Mathf.FloorToInt(_time / 60)}:0{Mathf.FloorToInt(_time) % 60}";
+        timer.text = text;
+        Debug.Log(text);
+    }
+
+    public void Restart()
+    {
+        _time = 0f;
     }
 }

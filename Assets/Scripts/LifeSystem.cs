@@ -51,6 +51,7 @@ public class LifeSystem : MonoBehaviour
         Invoke(nameof(EnableDamage), 1.5f);
         if (_livesNumber > 0) return;
         gameOverText.SetActive(true);
+        Timer.instance.Working = false;
         Time.timeScale = 0;
     }
 
