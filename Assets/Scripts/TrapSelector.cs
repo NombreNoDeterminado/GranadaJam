@@ -21,6 +21,11 @@ public class TrapSelector : MonoBehaviour
     public Text text3;
     private Text[] textList;
 
+    private AudioSource audioSource;
+    public AudioClip keyPressedAudio;
+    public int minPitch = 1;
+    public int maxPitch = 3;
+
     public Dictionary<string, ITrap> Traps { get; private set; } = new Dictionary<string, ITrap>();
 
     // Maximum numbers of traps in the array
@@ -33,6 +38,7 @@ public class TrapSelector : MonoBehaviour
         Instance = this;
         imageList = new GameObject[] {image1, image2, image3};
         textList = new Text[] {text1, text2, text3};
+        audioSource = GetComponent<AudioSource>();
         UpdateTraps();
     }
 
@@ -68,6 +74,9 @@ public class TrapSelector : MonoBehaviour
                 Debug.Log($"{bind}");
                 SelectedTrap = Traps[bind];
                 Debug.Log($"{SelectedTrap.Name()}");
+                Debug.Log("AUDIO");
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
+                audioSource.PlayOneShot(keyPressedAudio);
             }
         }
     }

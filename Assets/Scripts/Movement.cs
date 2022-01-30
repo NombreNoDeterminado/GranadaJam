@@ -7,11 +7,13 @@ public class Movement : MonoBehaviour
     Animator animator;
     Rigidbody m_Rigidbody;
     public float m_Speed = 5f;
+    AudioSource audioSource;
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
