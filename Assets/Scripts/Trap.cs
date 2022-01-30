@@ -24,4 +24,6 @@ public interface ITrap
     ParticleSystem Particles();
 
     GameObject Item();
+
+    Vector3 Offset();
 }

@@ -16,6 +16,9 @@ public class TrapGeneric : MonoBehaviour, ITrap
     public ParticleSystem particles;
     public GameObject item;
     public float itemDuration;
+    public float offSetX;
+    public float offSetY;
+    public float offSetZ;
     public static readonly ITrap[] Instances = new ITrap[NumberOfTotalTraps];
 
     private void Awake()
@@ -80,5 +83,10 @@ public class TrapGeneric : MonoBehaviour, ITrap
     public GameObject Item()
     {
         return item;
+    }
+
+    public Vector3 Offset()
+    {
+        return new Vector3(offSetX, offSetY, offSetZ);
     }
 }
