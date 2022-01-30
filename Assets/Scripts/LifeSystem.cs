@@ -11,6 +11,7 @@ public class LifeSystem : MonoBehaviour
     private bool _canTakedamage;
 
     public Text lifeText;
+    public GameObject gameOverText;
     
     // Heart images
     public Image heart1, heart2, heart3;
@@ -23,6 +24,14 @@ public class LifeSystem : MonoBehaviour
         _canTakedamage = true;
         _livesNumber = MaxLivesNumber;
         _hearts = new[] {heart1, heart2, heart3};
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void enableDamage()
@@ -41,6 +50,11 @@ public class LifeSystem : MonoBehaviour
             lifeText.text = _livesNumber.ToString();
             _canTakedamage = false;
             Invoke("enableDamage", 3);
+            if(_livesNumber <= 0)
+            {
+                gameOverText.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
        
     }
