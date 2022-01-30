@@ -78,6 +78,7 @@ public class TileController : MonoBehaviour
         {
             _particles = Instantiate(_activeTrap.Particles(), transform, true);
             _particles.transform.localPosition = Vector3.zero;
+            _particles.gameObject.SetActive(true);
             _particles.Play();
         }
         catch
