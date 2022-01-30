@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class MenuScript : MonoBehaviour { 
-    public void ChangeScene(string GameScene) 
+public class ChangeScene : MonoBehaviour { 
+    public void goToMainScene() 
     {
-        Application.LoadLevel(GameScene); 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     } 
 }
