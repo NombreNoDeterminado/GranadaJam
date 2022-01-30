@@ -51,16 +51,8 @@ public class TileController : MonoBehaviour
         {
         }
 
-        try
-        {
-            Destroy(_trapItem);
-        }
-        catch
-        {
-        }
 
         _particles = null;
-        _trapItem = null;
         _activeTrap = null;
         SetMaterial(normal);
     }
@@ -109,9 +101,22 @@ public class TileController : MonoBehaviour
         {
         }
 
+        Invoke(nameof(DestroyTrapItem), trap.ItemDuration());
         Invoke(nameof(ClearTrap), trap.Duration());
     }
 
+    private void DestroyTrapItem()
+    {
+        try
+        {
+            Destroy(_trapItem);
+        }
+        catch
+        {
+        }
+
+        _trapItem = null;
+    }
 
     private void OnCollisionStay(Collision collision)
     {

@@ -15,6 +15,7 @@ public class TrapGeneric : MonoBehaviour, ITrap
     public Material material;
     public ParticleSystem particles;
     public GameObject item;
+    public float itemDuration;
     public static readonly ITrap[] Instances = new ITrap[NumberOfTotalTraps];
 
     private void Awake()
@@ -39,6 +40,11 @@ public class TrapGeneric : MonoBehaviour, ITrap
     public float Duration()
     {
         return trapDuration;
+    }
+
+    public float ItemDuration()
+    {
+        return itemDuration;
     }
 
     public int Size()

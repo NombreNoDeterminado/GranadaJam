@@ -8,6 +8,8 @@ public interface ITrap
     // Trap duration
     float Duration();
 
+    float ItemDuration();
+
     int Size();
 
     /// True if is horizontal, false if vertical
