@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/kaloAudio.unity
+    guid: 83f960a2c31b4164ca04c0d46b206f22
   m_configObjects: {}
