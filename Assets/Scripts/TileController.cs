@@ -15,7 +15,7 @@ public class TileController : MonoBehaviour
     private ITrap _activeTrap;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _activeTrap = null;
         _objectRendererReference = new Renderer[transform.childCount];
@@ -33,7 +33,7 @@ public class TileController : MonoBehaviour
 
     private void OnMouseExit()
     {
-        SetMaterial(_activeTrap == null ? normal : trapped);
+        SetMaterial(_activeTrap == null ? normal : _activeTrap.Trapped());
     }
 
     private void ClearTrap()
@@ -62,8 +62,8 @@ public class TileController : MonoBehaviour
         {
             Debug.Log("Trap added");
             _activeTrap = trap;
-            SetMaterial(trapped);
-            Invoke("ClearTrap", trap.Duration());
+            SetMaterial(_activeTrap.Trapped());
+            Invoke(nameof(ClearTrap), trap.Duration());
         }
     }
 

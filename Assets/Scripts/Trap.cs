@@ -16,4 +16,6 @@ public interface ITrap
     Sprite Sprite();
 
     string Name();
+
+    Material Trapped();
 }
