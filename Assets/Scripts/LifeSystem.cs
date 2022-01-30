@@ -1,62 +1,57 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LifeSystem : MonoBehaviour
 {
-    public static LifeSystem Instance;
+    public static LifeSystem instance;
     private const int MaxLivesNumber = 3;
-    private bool _canTakedamage;
+    private bool _canTakeDamage;
 
     public Text lifeText;
     public GameObject gameOverText;
-    
+
     // Heart images
     public Image heart1, heart2, heart3;
     private Image[] _hearts;
+
     private int _livesNumber;
+
     // Start is called before the first frame update
     private void Start()
     {
-        Instance = this;
-        _canTakedamage = true;
+        instance = this;
+        _canTakeDamage = true;
         _livesNumber = MaxLivesNumber;
         _hearts = new[] {heart1, heart2, heart3};
     }
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
     }
 
-    private void enableDamage()
+    private void EnableDamage()
     {
-        _canTakedamage = true;
+        _canTakeDamage = true;
     }
 
     public void TakeDamage(int damage)
     {
-        if(_canTakedamage)
-        {
-            _livesNumber -= damage;
-            _livesNumber = Math.Max(0, _livesNumber);
-            //UpdateHearts();
-            Debug.Log($"Remaining lives: {_livesNumber}");
-            lifeText.text = _livesNumber.ToString();
-            _canTakedamage = false;
-            Invoke("enableDamage", 3);
-            if(_livesNumber <= 0)
-            {
-                gameOverText.SetActive(true);
-                Time.timeScale = 0;
-            }
-        }
-       
+        if (!_canTakeDamage) return;
+        _livesNumber -= damage;
+        _livesNumber = Math.Max(0, _livesNumber);
+        //UpdateHearts();
+        Debug.Log($"Remaining lives: {_livesNumber}");
+        lifeText.text = _livesNumber.ToString();
+        _canTakeDamage = false;
+        Invoke(nameof(EnableDamage), 1.5f);
+        if (_livesNumber > 0) return;
+        gameOverText.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void UpdateHearts()

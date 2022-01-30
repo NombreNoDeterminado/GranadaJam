@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TrapSelector : MonoBehaviour
 {
-    public static TrapSelector Instance;
+    public static TrapSelector instance;
     public Sprite fireSprite;
     public Sprite mineSprite;
     public Sprite laserSprite;
@@ -14,31 +14,31 @@ public class TrapSelector : MonoBehaviour
     public GameObject image1;
     public GameObject image2;
     public GameObject image3;
-    private GameObject[] imageList;
+    private GameObject[] _imageList;
 
     public Text text1;
     public Text text2;
     public Text text3;
-    private Text[] textList;
+    private Text[] _textList;
 
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
     public AudioClip keyPressedAudio;
     public int minPitch = 1;
     public int maxPitch = 3;
 
-    public Dictionary<string, ITrap> Traps { get; private set; } = new Dictionary<string, ITrap>();
+    private Dictionary<string, ITrap> Traps { get; set; } = new Dictionary<string, ITrap>();
 
     // Maximum numbers of traps in the array
     private const int MaxTraps = 3;
     public ITrap SelectedTrap { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        Instance = this;
-        imageList = new GameObject[] {image1, image2, image3};
-        textList = new Text[] {text1, text2, text3};
-        audioSource = GetComponent<AudioSource>();
+        instance = this;
+        _imageList = new[] {image1, image2, image3};
+        _textList = new[] {text1, text2, text3};
+        _audioSource = GetComponent<AudioSource>();
         UpdateTraps();
     }
 
@@ -50,7 +50,7 @@ public class TrapSelector : MonoBehaviour
         for (var i = 0; i < MaxTraps; i++)
         {
             var binding = $"{(char) Random.Range(97, 123)}";
-            int trap = Random.Range(0, TrapGeneric.Instances.Length);
+            var trap = Random.Range(0, TrapGeneric.Instances.Length);
             try
             {
                 Traps.Add(binding, TrapGeneric.Instances[trap]);
@@ -62,33 +62,30 @@ public class TrapSelector : MonoBehaviour
             }
         }
 
-        setVisualSelector();
+        SetVisualSelector();
     }
 
     private void Update()
     {
-        foreach (var bind in Traps.Keys)
+        foreach (var bind in Traps.Keys.Where(Input.GetKeyDown))
         {
-            if (Input.GetKeyDown(bind))
-            {
-                Debug.Log($"{bind}");
-                SelectedTrap = Traps[bind];
-                Debug.Log($"{SelectedTrap.Name()}");
-                Debug.Log("AUDIO");
-                audioSource.pitch = Random.Range(minPitch, maxPitch);
-                audioSource.PlayOneShot(keyPressedAudio);
-            }
+            Debug.Log($"{bind}");
+            SelectedTrap = Traps[bind];
+            Debug.Log($"{SelectedTrap.Name()}");
+            Debug.Log("AUDIO");
+            _audioSource.pitch = Random.Range(minPitch, maxPitch);
+            _audioSource.PlayOneShot(keyPressedAudio);
         }
     }
 
-    void setVisualSelector()
+    private void SetVisualSelector()
     {
-        List<string> trapsKeys = new List<string>(Traps.Keys);
+        var trapsKeys = new List<string>(Traps.Keys);
         Debug.Log(trapsKeys);
-        for (int i = 0; i < MaxTraps; i++)
+        for (var i = 0; i < MaxTraps; i++)
         {
-            imageList[i].GetComponent<Image>().sprite = Traps[trapsKeys[i]].Sprite();
-            textList[i].text = trapsKeys[i];
+            _imageList[i].GetComponent<Image>().sprite = Traps[trapsKeys[i]].Sprite();
+            _textList[i].text = trapsKeys[i];
         }
     }
 }

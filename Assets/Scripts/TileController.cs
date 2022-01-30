@@ -52,8 +52,8 @@ public class TileController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        TileMatrixController.Instance.TriggerTileClick(this.xCoordinate, this.yCoordinate);
-        TrapSelector.Instance.UpdateTraps();
+        TileMatrixController.instance.TriggerTileClick(this.xCoordinate, this.yCoordinate);
+        TrapSelector.instance.UpdateTraps();
     }
 
     public void SetTrap(ITrap trap)
@@ -73,7 +73,7 @@ public class TileController : MonoBehaviour
         {
             if (_activeTrap != null)
             {
-                LifeSystem.Instance.TakeDamage(_activeTrap.Damage());
+                LifeSystem.instance.TakeDamage(_activeTrap.Damage());
                 _activeTrap = null;
             }
         }

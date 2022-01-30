@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -14,7 +12,7 @@ public class TrapGeneric : MonoBehaviour, ITrap
     public bool trapOrientation;
     public string trapName;
     public int trapId;
-    public static ITrap[] Instances = new ITrap[NumberOfTotalTraps];
+    public static readonly ITrap[] Instances = new ITrap[NumberOfTotalTraps];
 
     private void Awake()
     {
