@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LifeSystem : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class LifeSystem : MonoBehaviour
     private const int MaxLivesNumber = 3;
     private bool _canTakeDamage;
 
+
+    public AudioSource S;
+    public AudioClip GameOverAudio;
     public Text lifeText;
     public GameObject gameOverText;
 
@@ -52,8 +56,24 @@ public class LifeSystem : MonoBehaviour
         if (_livesNumber > 0) return;
         gameOverText.SetActive(true);
         Timer.instance.Working = false;
-        Time.timeScale = 0;
+        S.clip = GameOverAudio;
+        S.Play();
+        goToMainSceneDelay();
+
     }
+
+
+    public void goToMainScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    public void goToMainSceneDelay()
+    {
+        Invoke("goToMainScene", 3f);
+    }
+
+
 
     private void UpdateHearts()
     {
