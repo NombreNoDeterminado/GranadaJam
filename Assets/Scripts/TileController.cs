@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TileController : MonoBehaviour
@@ -9,17 +10,18 @@ public class TileController : MonoBehaviour
     public int yCoordinate;
     public Material normal;
     public Material hover;
-    public Material trapped;
 
     private Renderer[] _objectRendererReference;
     private ITrap _activeTrap;
+    private ParticleSystem _particles;
 
     // Start is called before the first frame update
     private void Start()
     {
+        _particles = null;
         _activeTrap = null;
         _objectRendererReference = new Renderer[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
+        for (var i = 0; i < transform.childCount; i++)
         {
             _objectRendererReference[i] = transform.GetChild(i).GetComponent<Renderer>();
         }
@@ -38,6 +40,15 @@ public class TileController : MonoBehaviour
 
     private void ClearTrap()
     {
+        try
+        {
+            _particles.Stop();
+        }
+        catch
+        {
+        }
+
+        _particles = null;
         _activeTrap = null;
         SetMaterial(normal);
     }
@@ -58,24 +69,29 @@ public class TileController : MonoBehaviour
 
     public void SetTrap(ITrap trap)
     {
-        if (_activeTrap == null)
+        if (_activeTrap != null) return;
+
+        Debug.Log("Trap added");
+        _activeTrap = trap;
+        SetMaterial(_activeTrap.Trapped());
+        try
         {
-            Debug.Log("Trap added");
-            _activeTrap = trap;
-            SetMaterial(_activeTrap.Trapped());
-            Invoke(nameof(ClearTrap), trap.Duration());
+            _particles = Instantiate(_activeTrap.Particles(), transform, true);
+            _particles.transform.localPosition = Vector3.zero;
+            _particles.Play();
         }
+        catch
+        {
+        }
+
+        Invoke(nameof(ClearTrap), trap.Duration());
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (_activeTrap != null)
-            {
-                LifeSystem.instance.TakeDamage(_activeTrap.Damage());
-                _activeTrap = null;
-            }
-        }
+        if (!collision.gameObject.CompareTag("Player")) return;
+        if (_activeTrap == null) return;
+        LifeSystem.instance.TakeDamage(_activeTrap.Damage());
+        _activeTrap = null;
     }
 }

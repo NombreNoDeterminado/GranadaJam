@@ -18,4 +18,6 @@ public interface ITrap
     string Name();
 
     Material Trapped();
+
+    ParticleSystem Particles();
 }
