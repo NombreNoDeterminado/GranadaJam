@@ -8,6 +8,8 @@ public interface ITrap
     // Trap duration
     float Duration();
 
+    float ItemDuration();
+
     int Size();
 
     /// True if is horizontal, false if vertical
@@ -16,4 +18,10 @@ public interface ITrap
     Sprite Sprite();
 
     string Name();
+
+    Material Trapped();
+
+    ParticleSystem Particles();
+
+    GameObject Item();
 }
