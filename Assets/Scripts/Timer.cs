@@ -29,4 +29,9 @@ public class Timer : MonoBehaviour
         timer.text = text;
         Debug.Log(text);
     }
+
+    public void Restart()
+    {
+        _time = 0f;
+    }
 }
